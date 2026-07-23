@@ -28,7 +28,7 @@ import {
 	type SearchProviderCandidate,
 } from "./provider";
 import { renderSearchCall, renderSearchResult, type SearchRenderDetails } from "./render";
-import type { SearchProviderId, SearchResponse } from "./types";
+import type { GeminiSearchEffort, SearchProviderId, SearchResponse } from "./types";
 import { SearchProviderError } from "./types";
 
 /** Web search tool parameters schema */
@@ -158,6 +158,13 @@ async function executeSearch(
 		geminiModel = undefined;
 	}
 
+	let geminiEffort: GeminiSearchEffort | undefined;
+	try {
+		geminiEffort = settings.get("providers.webSearchGeminiEffort");
+	} catch {
+		geminiEffort = undefined;
+	}
+
 	const failures: Array<{ provider: Pick<SearchProvider, "id" | "label">; error: unknown }> = [];
 	let availableProviderCount = 0;
 	let lastProvider: Pick<SearchProvider, "id" | "label"> | undefined;
@@ -194,6 +201,7 @@ async function executeSearch(
 				sessionId,
 				antigravityEndpointMode,
 				geminiModel,
+				geminiEffort,
 			});
 
 			if (!hasRenderableSearchContent(response)) {

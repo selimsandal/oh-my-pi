@@ -1,6 +1,6 @@
 import type { AuthStorage, FetchImpl } from "@oh-my-pi/pi-ai";
 import type { ModelRegistry } from "../../../config/model-registry";
-import type { SearchProviderId, SearchResponse } from "../types";
+import type { GeminiSearchEffort, SearchProviderId, SearchResponse } from "../types";
 
 /**
  * Shared web search parameters passed to providers.
@@ -56,6 +56,7 @@ export interface SearchParams {
 	sessionId?: string;
 	antigravityEndpointMode?: "auto" | "production" | "sandbox";
 	geminiModel?: string;
+	geminiEffort?: GeminiSearchEffort;
 }
 
 /** Base class for web search providers. */

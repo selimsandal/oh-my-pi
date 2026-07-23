@@ -36,7 +36,12 @@ import {
 	TTS_LOCAL_VOICE_VALUES,
 } from "../tts/models";
 import { EDIT_MODES } from "../utils/edit-mode";
-import { SEARCH_PROVIDER_CHOICES, type SearchProviderId } from "../web/search/types";
+import {
+	GEMINI_SEARCH_EFFORT_OPTIONS,
+	GEMINI_SEARCH_EFFORTS,
+	SEARCH_PROVIDER_CHOICES,
+	type SearchProviderId,
+} from "../web/search/types";
 import {
 	SERVICE_TIER_ANTHROPIC_OPTIONS,
 	SERVICE_TIER_ANTHROPIC_VALUES,
@@ -4749,6 +4754,18 @@ export const SETTINGS_SCHEMA = {
 			group: "Services",
 			label: "Gemini web_search model",
 			description: "Model ID for Gemini Google Search grounding. Defaults to gemini-2.5-flash.",
+		},
+	},
+	"providers.webSearchGeminiEffort": {
+		type: "enum",
+		values: GEMINI_SEARCH_EFFORTS,
+		default: "default",
+		ui: {
+			tab: "providers",
+			group: "Services",
+			label: "Gemini web_search effort",
+			description: "Provider-native thinking effort for Gemini Google Search grounding",
+			options: GEMINI_SEARCH_EFFORT_OPTIONS,
 		},
 	},
 	"providers.antigravityEndpoint": {

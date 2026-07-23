@@ -674,6 +674,7 @@ providers:
   imageOrder: [openai, xai]
   fetch: auto
   webSearchGeminiModel: gemini-2.5-flash
+  webSearchGeminiEffort: default
   tinyModel: online
   tinyModelDevice: default
   tinyModelDtype: default
@@ -698,7 +699,8 @@ searxng:
 | Key | Type | Default | Values / notes |
 |---|---|---|---|
 | `providers.webSearchOrder` | array | `[]` | Provider IDs in priority order for `web_search` (`perplexity`, `gemini`, `anthropic`, `codex`, `zai`, `exa`, `jina`, `kagi`, `tavily`, `brave`, `kimi`, `parallel`, `synthetic`, `searxng`, …). Duplicates and unknown IDs are ignored; unlisted providers retain their built-in relative order afterward. Empty = built-in order. Replaces the removed `providers.webSearch` enum (a legacy value migrates to the head of this list). |
-| `providers.webSearchGeminiModel` | string | _(unset)_ | Gemini model ID for Google Search grounding when `web_search` uses Gemini; defaults to `gemini-2.5-flash`, overridden by `GEMINI_SEARCH_MODEL`. |
+| `providers.webSearchGeminiModel` | string | _(unset)_ | Gemini model ID for Google Search grounding when `web_search` uses Gemini; defaults to `gemini-2.5-flash`, overridden by `GEMINI_SEARCH_MODEL`. OAuth logical ids route through provider model metadata while results retain the logical id. With default effort, explicit wire ids and Developer API ids pass through. |
+| `providers.webSearchGeminiEffort` | enum | `default` | `default`, `minimal`, `low`, `medium`, `high`; overridden by `GEMINI_SEARCH_EFFORT`. `default` omits `thinkingConfig`. Explicit effort requires verified logical-model metadata and resolves to Antigravity's native budget/wire route or Gemini CLI/Developer API thinking levels; unsupported efforts and unverified/raw ids fail before dispatch. |
 | `providers.imageOrder` | array | `[]` | Image-generation provider IDs in priority order (`openai`, `openai-codex`, `antigravity`, `xai`, `gemini`, `openrouter`). Unlisted providers follow the active session provider and the built-in order. Replaces the removed `providers.image` enum (a legacy value migrates to the head of this list). |
 | `providers.fetch` | enum | `auto` | `auto`, `native`, `trafilatura`, `lynx`, `parallel`, `jina`. |
 | `providers.tinyModel` | enum | `online` | `online` or a local model (`lfm2-350m`, `qwen3-0.6b`, `gemma-270m`, `qwen2.5-0.5b`, `lfm2-700m`). |

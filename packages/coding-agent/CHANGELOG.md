@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added `providers.webSearchGeminiEffort` (`default`, `minimal`, `low`, `medium`, `high`) and the `GEMINI_SEARCH_EFFORT` override for route-aware Gemini web-search thinking. Default effort preserves provider-native behavior; explicit effort uses verified model metadata for wire routes, thinking levels, or token budgets and rejects unsupported selections before dispatch.
+
+### Fixed
+
+- Fixed OAuth-backed Gemini web search routing configured logical model IDs through provider-specific wire IDs, preferring an authenticated backend that owns the selected model when multiple Gemini OAuth providers are available, and reporting the logical model ID in results.
+
 ## [17.1.1] - 2026-07-24
 
 ### Added
